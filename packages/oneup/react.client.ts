@@ -1,1 +1,1 @@
-export * from "@oneup/react/client";
+export * from "oneup-react/client";

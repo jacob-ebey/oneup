@@ -33,15 +33,12 @@
 	"scripts": {
 		"build": "repo-tools build --platform neutral && repo-tools build --nocheck --platform neutral --input entry.browser.ts --output entry.browser.js && repo-tools build --nocheck --platform neutral --input react.ts --output react.js && repo-tools build --nocheck --platform node --input node.ts --output node.js && repo-tools build --nocheck --platform neutral --input react.ts --output react.js && repo-tools build --nocheck --platform neutral --input react.client.ts --output react.client.js"
 	},
-	"dependencies": {
-		"@oneup/server": "*"
-	},
 	"devDependencies": {
-		"@oneup/repo-tools": "*"
+		"oneup-repo-tools": "*"
 	},
 	"optionalDependencies": {
-		"@oneup/cli": "*",
-		"@oneup/node": "*",
-		"@oneup/react": "*"
+		"oneup-cli": "*",
+		"oneup-node": "*",
+		"oneup-react": "*"
 	}
 }

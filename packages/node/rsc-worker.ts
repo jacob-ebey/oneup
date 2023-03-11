@@ -5,7 +5,7 @@ import * as React from "react";
 import RSDWServer from "react-server-dom-webpack/server";
 import { createTrie } from "router-trie";
 
-import { Router } from "@oneup/react";
+import { Router } from "oneup-react";
 
 const { renderToPipeableStream } = RSDWServer;
 

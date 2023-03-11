@@ -1,5 +1,5 @@
 {
-	"name": "@oneup/cli",
+	"name": "oneup-cli",
 	"version": "0.0.0",
 	"type": "module",
 	"description": "The cli for whatever this is.",
@@ -21,7 +21,7 @@
 		"sucrase": "3.29.0"
 	},
 	"devDependencies": {
-		"@oneup/repo-tools": "*",
-		"@types/babel__core": "7.20.0"
+		"@types/babel__core": "7.20.0",
+		"oneup-repo-tools": "*"
 	}
 }

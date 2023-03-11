@@ -8,7 +8,7 @@ import { createId } from "@paralleldrive/cuid2";
 const require = createRequire(import.meta.url);
 
 export async function createRSCWorker(buildPath: string) {
-	const rscWorker = require.resolve("@oneup/node/rsc-worker");
+	const rscWorker = require.resolve("oneup-node/rsc-worker");
 	const worker = new Worker(rscWorker, {
 		execArgv: ["--conditions", "react-server"],
 		workerData: {
