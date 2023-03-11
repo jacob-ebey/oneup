@@ -1,9 +1,11 @@
 {
 	"name": "@jacob-ebey/oneup",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"type": "module",
 	"description": "IDK what this is yet.",
-	"files": ["**/*"],
+	"files": [
+		"**/*"
+	],
 	"types": "./index.d.ts",
 	"main": "./index.js",
 	"exports": {
@@ -38,8 +40,8 @@
 		"oneup-repo-tools": "0.0.1"
 	},
 	"optionalDependencies": {
-		"oneup-cli": "0.0.1",
-		"oneup-node": "0.0.1",
-		"oneup-react": "0.0.1"
+		"oneup-cli": "0.0.2",
+		"oneup-node": "0.0.2",
+		"oneup-react": "0.0.2"
 	}
 }
