@@ -3,7 +3,8 @@
 	"name": "@examples/node",
 	"type": "module",
 	"scripts": {
-		"build": "oneup build"
+		"build": "oneup build",
+		"start": "node server.js"
 	},
 	"dependencies": {
 		"compressing": "1.8.0",
