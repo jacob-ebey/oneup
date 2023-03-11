@@ -17,4 +17,5 @@ Open a new terminal:
 
 - [] Add comments to everything
 - [] Add tests
+- [] Move route logic to react package and support more than just the navigation API
 - [] Handle form submissions
