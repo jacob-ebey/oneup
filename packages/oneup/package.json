@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"type": "module",
 	"description": "IDK what this is yet.",
+	"files": ["**/*"],
 	"types": "./index.d.ts",
 	"main": "./index.js",
 	"exports": {

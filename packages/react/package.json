@@ -3,6 +3,9 @@
 	"version": "0.0.1",
 	"type": "module",
 	"description": "The react layer for whatever this is.",
+	"files": [
+		"**/*"
+	],
 	"types": "./index.d.ts",
 	"main": "./index.js",
 	"exports": {
