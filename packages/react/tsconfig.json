@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"emitDeclarationOnly": true,
+		"declaration": true,
+		"target": "ES2020",
+		"moduleResolution": "node",
+		"strict": true,
+		"types": ["react/experimental"]
+	}
+}

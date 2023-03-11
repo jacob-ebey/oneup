@@ -1,0 +1,33 @@
+{
+	"name": "@oneup/node",
+	"version": "0.0.0",
+	"type": "module",
+	"description": "The node layer for whatever this is.",
+	"types": "./index.d.ts",
+	"main": "./index.js",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"default": "./index.js"
+		},
+		"./rsc-worker": {
+			"types": "./rsc-worker.d.ts",
+			"default": "./rsc-worker.js"
+		}
+	},
+	"scripts": {
+		"build": "repo-tools build --platform node && repo-tools build --nocheck --platform node --input rsc-worker.ts --output rsc-worker.js"
+	},
+	"dependencies": {
+		"@paralleldrive/cuid2": "2.2.0",
+		"router-trie": "0.0.8"
+	},
+	"devDependencies": {
+		"@oneup/repo-tools": "*"
+	},
+	"optionalPeerDependencies": {
+		"@oneup/react": "*",
+		"react": "*",
+		"react-server-dom-webpack": "*"
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"name": "@oneup/cli",
+	"version": "0.0.0",
+	"type": "module",
+	"description": "The cli for whatever this is.",
+	"types": "./index.d.ts",
+	"main": "./index.js",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"default": "./index.js"
+		}
+	},
+	"scripts": {
+		"build": "repo-tools build --platform node"
+	},
+	"dependencies": {
+		"@babel/core": "7.21.0",
+		"arg": "5.0.2",
+		"esbuild": "0.17.10",
+		"sucrase": "3.29.0"
+	},
+	"devDependencies": {
+		"@oneup/repo-tools": "*",
+		"@types/babel__core": "7.20.0"
+	}
+}

@@ -1,0 +1,47 @@
+{
+	"name": "oneup",
+	"version": "0.0.0",
+	"type": "module",
+	"description": "IDK what this is yet.",
+	"types": "./index.d.ts",
+	"main": "./index.js",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"default": "./index.js"
+		},
+		"./node": {
+			"types": "./node.d.ts",
+			"default": "./node.js"
+		},
+		"./react": {
+			"types": "./react.d.ts",
+			"default": "./react.js"
+		},
+		"./react.client": {
+			"types": "./react.client.d.ts",
+			"default": "./react.client.js"
+		},
+		"./entry.browser": {
+			"types": "./entry.browser.d.ts",
+			"default": "./entry.browser.js"
+		}
+	},
+	"bin": {
+		"oneup": "./cli.cjs"
+	},
+	"scripts": {
+		"build": "repo-tools build --platform neutral && repo-tools build --nocheck --platform neutral --input entry.browser.ts --output entry.browser.js && repo-tools build --nocheck --platform neutral --input react.ts --output react.js && repo-tools build --nocheck --platform node --input node.ts --output node.js && repo-tools build --nocheck --platform neutral --input react.ts --output react.js && repo-tools build --nocheck --platform neutral --input react.client.ts --output react.client.js"
+	},
+	"dependencies": {
+		"@oneup/server": "*"
+	},
+	"devDependencies": {
+		"@oneup/repo-tools": "*"
+	},
+	"optionalDependencies": {
+		"@oneup/cli": "*",
+		"@oneup/node": "*",
+		"@oneup/react": "*"
+	}
+}

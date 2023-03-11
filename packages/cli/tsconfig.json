@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"emitDeclarationOnly": true,
+		"declaration": true,
+		"target": "ES2022",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"strict": true
+	}
+}
