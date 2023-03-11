@@ -1,6 +1,6 @@
 {
 	"name": "@jacob-ebey/oneup",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"type": "module",
 	"description": "IDK what this is yet.",
 	"files": [
@@ -37,11 +37,11 @@
 		"build": "repo-tools build --platform neutral && repo-tools build --nocheck --platform neutral --input entry.browser.ts --output entry.browser.js && repo-tools build --nocheck --platform neutral --input react.ts --output react.js && repo-tools build --nocheck --platform node --input node.ts --output node.js && repo-tools build --nocheck --platform neutral --input react.ts --output react.js && repo-tools build --nocheck --platform neutral --input react.client.ts --output react.client.js"
 	},
 	"devDependencies": {
-		"oneup-repo-tools": "0.0.1"
+		"oneup-repo-tools": "0.0.2"
 	},
 	"optionalDependencies": {
-		"oneup-cli": "0.0.2",
-		"oneup-node": "0.0.2",
-		"oneup-react": "0.0.2"
+		"oneup-cli": "0.0.3",
+		"oneup-node": "0.0.3",
+		"oneup-react": "0.0.3"
 	}
 }
