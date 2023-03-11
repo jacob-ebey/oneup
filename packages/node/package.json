@@ -1,6 +1,6 @@
 {
 	"name": "oneup-node",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"type": "module",
 	"description": "The node layer for whatever this is.",
 	"files": [
@@ -26,7 +26,7 @@
 		"router-trie": "0.0.8"
 	},
 	"devDependencies": {
-		"oneup-repo-tools": "0.0.1"
+		"oneup-repo-tools": "0.0.2"
 	},
 	"optionalPeerDependencies": {
 		"oneup-react": "0.0.1",
