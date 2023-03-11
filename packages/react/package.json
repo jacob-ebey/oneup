@@ -1,5 +1,5 @@
 {
-	"name": "@oneup/react",
+	"name": "oneup-react",
 	"version": "0.0.0",
 	"type": "module",
 	"description": "The react layer for whatever this is.",
@@ -23,6 +23,6 @@
 		"router-trie": "0.0.8"
 	},
 	"devDependencies": {
-		"@oneup/repo-tools": "*"
+		"oneup-repo-tools": "*"
 	}
 }

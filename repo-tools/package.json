@@ -1,6 +1,6 @@
 {
 	"private": true,
-	"name": "@oneup/repo-tools",
+	"name": "oneup-repo-tools",
 	"type": "module",
 	"bin": {
 		"repo-tools": "./bin/repo-tools.cjs"

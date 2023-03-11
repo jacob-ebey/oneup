@@ -1,1 +1,1 @@
-export * from "@oneup/node";
+export * from "oneup-node";
