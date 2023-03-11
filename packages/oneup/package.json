@@ -37,8 +37,8 @@
 		"oneup-repo-tools": "*"
 	},
 	"optionalDependencies": {
-		"oneup-cli": "*",
-		"oneup-node": "*",
-		"oneup-react": "*"
+		"oneup-cli": "0.0.0",
+		"oneup-node": "0.0.0",
+		"oneup-react": "0.0.0"
 	}
 }

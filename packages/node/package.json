@@ -26,7 +26,7 @@
 		"oneup-repo-tools": "*"
 	},
 	"optionalPeerDependencies": {
-		"oneup-react": "*",
+		"oneup-react": "0.0.0",
 		"react": "*",
 		"react-server-dom-webpack": "*"
 	}
