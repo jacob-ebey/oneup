@@ -1,4 +1,5 @@
 {
+	"private": true,
 	"name": "@examples/node",
 	"type": "module",
 	"scripts": {

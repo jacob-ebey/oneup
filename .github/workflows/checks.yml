@@ -1,0 +1,24 @@
+name: Checks
+
+on: [push]
+
+concurrency: checks-${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  unit-test:
+    name: Build and Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: Run Build
+        run: npm run build
