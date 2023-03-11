@@ -26,6 +26,6 @@
 		"router-trie": "0.0.8"
 	},
 	"devDependencies": {
-		"oneup-repo-tools": "*"
+		"oneup-repo-tools": "0.0.1"
 	}
 }
