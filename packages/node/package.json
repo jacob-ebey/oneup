@@ -1,9 +1,11 @@
 {
 	"name": "oneup-node",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"type": "module",
 	"description": "The node layer for whatever this is.",
-	"files": ["**/*"],
+	"files": [
+		"**/*"
+	],
 	"types": "./index.d.ts",
 	"main": "./index.js",
 	"exports": {

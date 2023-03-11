@@ -1,6 +1,6 @@
 {
 	"name": "oneup-react",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"type": "module",
 	"description": "The react layer for whatever this is.",
 	"files": [
