@@ -1,6 +1,6 @@
 {
 	"name": "oneup-react",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"type": "module",
 	"description": "The react layer for whatever this is.",
 	"types": "./index.d.ts",
