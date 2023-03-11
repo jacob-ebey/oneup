@@ -3,6 +3,7 @@
 	"version": "0.0.1",
 	"type": "module",
 	"description": "The cli for whatever this is.",
+	"files": ["**/*"],
 	"types": "./index.d.ts",
 	"main": "./index.js",
 	"exports": {
