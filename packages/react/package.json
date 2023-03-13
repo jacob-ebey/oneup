@@ -1,6 +1,6 @@
 {
 	"name": "oneup-react",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"type": "module",
 	"description": "The react layer for whatever this is.",
 	"files": [
@@ -29,7 +29,7 @@
 		"router-trie": "0.0.8"
 	},
 	"devDependencies": {
-		"oneup-repo-tools": "0.0.3"
+		"oneup-repo-tools": "0.0.4"
 	},
 	"peerDependencies": {
 		"react-server-dom-webpack": "*"

@@ -1,6 +1,6 @@
 {
 	"name": "oneup-node",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"type": "module",
 	"description": "The node layer for whatever this is.",
 	"files": [
@@ -28,7 +28,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "18.15.0",
-		"oneup-repo-tools": "0.0.3"
+		"oneup-repo-tools": "0.0.4"
 	},
 	"optionalPeerDependencies": {
 		"oneup-react": "0.0.1",
