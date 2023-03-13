@@ -111,6 +111,7 @@ async function build(cwd: string, config?: string, mode?: string) {
 		outfile: "build/rsc.js",
 		minify: isProduction,
 		jsxDev: false,
+		conditions: ["react-server"],
 		define: {
 			"process.env.NODE_ENV": isProduction ? '"production"' : '"development"',
 		},
