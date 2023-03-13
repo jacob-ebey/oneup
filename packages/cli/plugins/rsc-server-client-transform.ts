@@ -6,65 +6,6 @@ import type * as Plugin from "../plugin";
 const t = babel.types;
 const loaders = new Set(["js", "jsx", "ts", "tsx"]);
 
-export function isClientComponent(source: string, filePath: string) {
-	const transforms: sucrase.Transform[] = [];
-	if (filePath.endsWith(".jsx")) {
-		transforms.push("jsx");
-	} else if (filePath.endsWith(".tsx")) {
-		transforms.push("jsx");
-		transforms.push("typescript");
-	} else if (filePath.endsWith(".ts")) {
-		transforms.push("typescript");
-	}
-
-	const { code } = sucrase.transform(source, {
-		transforms,
-		filePath,
-		jsxRuntime: "automatic",
-		production: true,
-		preserveDynamicImport: true,
-		disableESTransforms: true,
-	});
-
-	let isClientModule = false;
-	babel.parseSync(code, {
-		babelrc: false,
-		configFile: false,
-		filename: filePath,
-
-		plugins: [
-			{
-				pre(file) {
-					console.log("HERE", file);
-					const newIsClientModule =
-						file.ast.program.directives.some((node) => {
-							if (node.value.value === "use client") {
-								return true;
-							}
-						}) ||
-						file.ast.program.body.some((node) => {
-							// find "use client" or 'use client' or `use client` in the top level
-							if (
-								t.isExpressionStatement(node) &&
-								t.isStringLiteral(node.expression)
-							) {
-								if (node.expression.value === "use client") {
-									return true;
-								}
-							}
-						});
-
-					if (newIsClientModule) {
-						isClientModule = true;
-					}
-				},
-			},
-		],
-	});
-
-	return isClientModule;
-}
-
 export function createRscServerClientTransformPlugin(
 	isProduction: boolean,
 	clientModules: Map<string, Set<string>>

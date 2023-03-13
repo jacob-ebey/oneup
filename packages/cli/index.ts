@@ -6,10 +6,7 @@ import enhancedResolve from "enhanced-resolve";
 import * as esbuild from "esbuild";
 
 import { createESBuildPlugin } from "./plugin";
-import {
-	createRscServerClientTransformPlugin,
-	isClientComponent,
-} from "./plugins/rsc-server-client-transform";
+import { createRscServerClientTransformPlugin } from "./plugins/rsc-server-client-transform";
 
 export async function run(argv: string[]) {
 	const args = arg(
