@@ -111,6 +111,7 @@ function typecheck({ pkg }) {
 
 		const tsc = cp.spawn("tsc", {
 			cwd: process.cwd(),
+			shell: true,
 		});
 
 		tsc.once("close", () => {
