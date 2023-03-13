@@ -1,5 +1,11 @@
 # oneup-node
 
+## 0.0.5
+
+### Patch Changes
+
+- [`650243c`](https://github.com/jacob-ebey/oneup/commit/650243ca750b1ce05082eb582b37bc22aad51469) Thanks [@jacob-ebey](https://github.com/jacob-ebey)! - flatten network graph, move router to package
+
 ## 0.0.4
 
 ### Patch Changes
