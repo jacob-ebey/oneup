@@ -1,12 +1,14 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
+import * as mod from "node:module";
 
 import arg from "arg";
-import enhancedResolve from "enhanced-resolve";
 import * as esbuild from "esbuild";
 
 import { createESBuildPlugin } from "./plugin";
 import { createRscServerClientTransformPlugin } from "./plugins/rsc-server-client-transform";
+
+console.log(mod.builtinModules);
 
 export async function run(argv: string[]) {
 	const args = arg(
@@ -74,6 +76,30 @@ async function build(cwd: string, config?: string, mode?: string) {
 
 	const isProduction = mode !== "development";
 
+	const builtinsSet = new Set([...mod.builtinModules]);
+	const builtinExternalsPlugin: esbuild.Plugin = {
+		name: "builtin-externals",
+		setup(build) {
+			build.onResolve({ filter: /^node:.*$/ }, (args) => {
+				return {
+					path: args.path,
+					external: true,
+				};
+			});
+
+			build.onResolve({ filter: /.*/ }, (args) => {
+				console.log(args.path);
+				if (builtinsSet.has(args.path)) {
+					return {
+						path: args.path,
+						external: true,
+					};
+				}
+				return undefined;
+			});
+		},
+	};
+
 	const externalsPlugin: esbuild.Plugin = {
 		name: "externals",
 		setup(build) {
@@ -96,10 +122,6 @@ async function build(cwd: string, config?: string, mode?: string) {
 		},
 	};
 
-	const resolver = enhancedResolve.ResolverFactory.createResolver({
-		fileSystem: new enhancedResolve.CachedInputFileSystem(fs, 4000),
-	});
-
 	const rscBuildResult = await esbuild.build({
 		absWorkingDir: cwd,
 		bundle: true,
@@ -112,11 +134,20 @@ async function build(cwd: string, config?: string, mode?: string) {
 		minify: isProduction,
 		jsxDev: false,
 		conditions: ["react-server"],
+		external: [
+			"react",
+			"react-dom",
+			"react-dom/server",
+			"react-server-dom-webpack",
+			"react-server-dom-webpack/client",
+			"react-server-dom-webpack/server",
+		],
 		define: {
 			"process.env.NODE_ENV": isProduction ? '"production"' : '"development"',
 		},
 		entryPoints: [config],
 		plugins: [
+			builtinExternalsPlugin,
 			createESBuildPlugin({
 				transformPlugins: [
 					createRscServerClientTransformPlugin(isProduction, clientModules),
@@ -170,7 +201,15 @@ async function build(cwd: string, config?: string, mode?: string) {
 				path.resolve(cwd, "public/build"),
 				path.resolve(cwd, outfile)
 			);
-		clientModuleToBrowserOutputModule.set(entry, [mod]);
+		const chunks = meta.imports.map(
+			(i) =>
+				"/build/" +
+				path.relative(
+					path.resolve(cwd, "public/build"),
+					path.resolve(cwd, i.path)
+				)
+		);
+		clientModuleToBrowserOutputModule.set(entry, [mod, ...chunks]);
 	}
 
 	const rscManifest: any = {};
@@ -185,15 +224,15 @@ async function build(cwd: string, config?: string, mode?: string) {
 				id: mod[0],
 				name,
 				mod: mod[0],
-				chunks: mod.slice(1),
+				chunks: mod,
 				async: true,
 			};
 		});
 	});
 
-	let [browserEntry] = Object.entries(browserBuildResult.metafile.outputs).find(
-		([_, o]) => o.entryPoint === "app/entry.browser.ts"
-	)!;
+	let [browserEntry, browserEntryOutput] = Object.entries(
+		browserBuildResult.metafile.outputs
+	).find(([_, o]) => o.entryPoint === "app/entry.browser.ts")!;
 	browserEntry =
 		"/build/" +
 		path.relative(
@@ -201,9 +240,24 @@ async function build(cwd: string, config?: string, mode?: string) {
 			path.resolve(cwd, browserEntry)
 		);
 
+	const browserEntryChunks = browserEntryOutput.imports.map(
+		(i) =>
+			"/build/" +
+			path.relative(
+				path.resolve(cwd, "public/build"),
+				path.resolve(cwd, i.path)
+			)
+	);
+	browserEntry = JSON.stringify(
+		JSON.stringify({
+			entry: browserEntry,
+			chunks: browserEntryChunks,
+		})
+	);
+
 	rscBuildResult.outputFiles.forEach((file) => {
 		let toWrite = file.text.replace(
-			/\$___oneup___entry___browser___\$/g,
+			/"\$___oneup___entry___browser___\$"/g,
 			browserEntry
 		);
 		if (file.path.endsWith("rsc.js")) {
@@ -230,7 +284,7 @@ export const manifest = ${JSON.stringify(rscManifest, null, 2)};
 		minify: isProduction,
 		jsxDev: false,
 		entryPoints: clientEntries,
-		plugins: [externalsPlugin],
+		plugins: [builtinExternalsPlugin, externalsPlugin],
 		define: {
 			"process.env.NODE_ENV": isProduction ? '"production"' : '"development"',
 		},
@@ -241,7 +295,7 @@ export const manifest = ${JSON.stringify(rscManifest, null, 2)};
 
 	serverClientBuildResult.outputFiles.forEach((file) => {
 		let toWrite = file.text.replace(
-			/\$___oneup___entry___browser___\$/g,
+			/"\$___oneup___entry___browser___\$"/g,
 			browserEntry
 		);
 		fs.mkdirSync(path.dirname(file.path), { recursive: true });

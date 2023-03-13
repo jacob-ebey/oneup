@@ -43,25 +43,40 @@ export function Router({ trie, url }: { trie: Node<RouteConfig>; url: URL }) {
 export function InlineScripts() {
 	return React.createElement(
 		React.Fragment,
-		undefined,
+		null,
 		React.createElement("script", {
 			dangerouslySetInnerHTML: {
 				__html: `
 var __oneup = { e: new TextEncoder() };
 __oneup.r = new Response(new ReadableStream({ start(c) { __oneup.c = c; } }));
-var __webpack_require__ = (id) => {
-	const p = import(id)
-	return p.then(v => (p.value = v), r => { p.reason = r; throw r; });
-};
 								`.trim(),
 			},
 		})
 	);
 }
 
-export function getInitialRSCFetch() {
-	return Promise.resolve(
-		// @ts-expect-error
-		__oneup.r
-	);
+interface BrowserEntryProps {
+	browserEntry: string;
+}
+
+export function BrowserEntry({ browserEntry }: BrowserEntryProps) {
+	const { entry, chunks } = JSON.parse(browserEntry) as {
+		entry: string;
+		chunks: string[];
+	};
+	return React.createElement(React.Fragment, {
+		children: [
+			...chunks.map((chunk) =>
+				React.createElement("link", {
+					rel: "modulepreload",
+					href: chunk,
+				})
+			),
+			React.createElement("script", {
+				async: true,
+				type: "module",
+				src: entry,
+			}),
+		],
+	});
 }

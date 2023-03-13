@@ -81,6 +81,8 @@ async function build({ input, output, pkg, platform }) {
 			...Object.keys(pkg.dependencies || {}),
 			...Object.keys(pkg.optionalDependencies || {}),
 			...Object.keys(pkg.optionalPeerDependencies || {}),
+			"react-dom/client",
+			"react-server-dom-webpack/client",
 		],
 	});
 	if (buildResult.errors.length > 0) {

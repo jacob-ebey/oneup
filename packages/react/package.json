@@ -28,5 +28,8 @@
 	},
 	"devDependencies": {
 		"oneup-repo-tools": "0.0.3"
+	},
+	"peerDependencies": {
+		"react-server-dom-webpack": "*"
 	}
 }
