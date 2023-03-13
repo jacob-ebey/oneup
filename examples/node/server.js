@@ -24,8 +24,9 @@ const rscWorker = await createRSCWorker(
 	nodeURL.pathToFileURL(path.resolve(__dirname, "build/rsc.js")).href
 );
 
-http.createServer(handler).listen(3000, () => {
-	console.log("Listening at http://localhost:3000");
+const port = Number.parseInt(process.env.PORT || "3000");
+http.createServer(handler).listen(port, () => {
+	console.log(`Listening at http://localhost:${port}`);
 });
 
 /**
