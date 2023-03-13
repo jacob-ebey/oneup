@@ -141,9 +141,6 @@ export function createRscServerClientTransformPlugin(
 			return contents;
 		}
 
-		if (contents.path === "/Users/jacob/git/oneup/packages/react/client.js") {
-			console.log({ f: contents.path, exportsCache });
-		}
 		let transformedCode = transformResult?.code || "";
 		for (const rscExport of exportsCache) {
 			transformedCode += `

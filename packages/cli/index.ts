@@ -127,8 +127,6 @@ async function build(cwd: string, config?: string, mode?: string) {
 		throw new Error("RSC build failed.");
 	}
 
-	console.log(Array.from(clientModules.keys()));
-
 	const clientEntries = Array.from(clientModules.keys());
 
 	const browserBuildResult = await esbuild.build({
