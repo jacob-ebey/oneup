@@ -1,6 +1,6 @@
 {
 	"name": "oneup-cli",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"type": "module",
 	"description": "The cli for whatever this is.",
 	"files": [
@@ -27,6 +27,6 @@
 	"devDependencies": {
 		"@types/babel__core": "7.20.0",
 		"@types/node": "18.15.0",
-		"oneup-repo-tools": "0.0.3"
+		"oneup-repo-tools": "0.0.4"
 	}
 }

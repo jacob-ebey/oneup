@@ -1,5 +1,15 @@
 # @examples/node
 
+## 0.0.6
+
+### Patch Changes
+
+- [`e742fe9`](https://github.com/jacob-ebey/oneup/commit/e742fe995df5d8a98de3ee607a53f9cb1919b09a) Thanks [@jacob-ebey](https://github.com/jacob-ebey)! - make things work on windows
+
+- Updated dependencies [[`e742fe9`](https://github.com/jacob-ebey/oneup/commit/e742fe995df5d8a98de3ee607a53f9cb1919b09a)]:
+  - @jacob-ebey/oneup@0.0.6
+  - oneup-react@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes

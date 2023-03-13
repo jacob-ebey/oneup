@@ -1,5 +1,11 @@
 # oneup-cli
 
+## 0.0.6
+
+### Patch Changes
+
+- [`e742fe9`](https://github.com/jacob-ebey/oneup/commit/e742fe995df5d8a98de3ee607a53f9cb1919b09a) Thanks [@jacob-ebey](https://github.com/jacob-ebey)! - make things work on windows
+
 ## 0.0.5
 
 ### Patch Changes

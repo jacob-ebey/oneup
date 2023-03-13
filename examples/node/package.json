@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"name": "@examples/node",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"type": "module",
 	"sideEffects": false,
 	"scripts": {
@@ -9,11 +9,11 @@
 		"start": "node server.js"
 	},
 	"dependencies": {
-		"@jacob-ebey/oneup": "0.0.5",
+		"@jacob-ebey/oneup": "0.0.6",
 		"compressing": "1.8.0",
 		"isbot": "3.6.6",
 		"mime-types": "2.1.35",
-		"oneup-react": "0.0.5",
+		"oneup-react": "0.0.6",
 		"react": "0.0.0-experimental-3706edb81-20230308",
 		"react-dom": "0.0.0-experimental-3706edb81-20230308",
 		"react-server-dom-webpack": "0.0.0-experimental-3706edb81-20230308"
@@ -23,6 +23,6 @@
 		"@types/node": "18.15.0",
 		"@types/react": "18.0.28",
 		"@types/react-dom": "18.0.11",
-		"oneup-cli": "0.0.5"
+		"oneup-cli": "0.0.6"
 	}
 }
