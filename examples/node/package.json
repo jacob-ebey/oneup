@@ -5,7 +5,7 @@
 	"type": "module",
 	"sideEffects": false,
 	"scripts": {
-		"build": "oneup build --mode development",
+		"build": "oneup build --mode production",
 		"start": "node server.js"
 	},
 	"dependencies": {
