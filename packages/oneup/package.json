@@ -1,6 +1,6 @@
 {
 	"name": "@jacob-ebey/oneup",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"type": "module",
 	"description": "IDK what this is yet.",
 	"files": [
@@ -29,8 +29,8 @@
 		"oneup-repo-tools": "0.0.3"
 	},
 	"optionalDependencies": {
-		"oneup-cli": "0.0.4",
-		"oneup-node": "0.0.4",
-		"oneup-react": "0.0.4"
+		"oneup-cli": "0.0.5",
+		"oneup-node": "0.0.5",
+		"oneup-react": "0.0.5"
 	}
 }
