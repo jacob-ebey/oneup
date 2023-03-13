@@ -7,8 +7,6 @@ import { createTrie } from "router-trie";
 
 import { Router } from "oneup-react";
 
-const { renderToPipeableStream } = RSDWServer;
-
 const { routes, manifest } = await import(workerData.buildPath);
 
 const trie = createTrie(routes);
@@ -54,7 +52,10 @@ function handleMessage(msg) {
 			callback();
 		},
 	});
-	renderToPipeableStream(
+
+	// Render the RSC chunks and pipe them through the passthrough stream
+	// to relay up to the parent thread.
+	RSDWServer.renderToPipeableStream(
 		React.createElement(Router, {
 			trie,
 			url,

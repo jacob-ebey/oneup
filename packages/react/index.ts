@@ -22,6 +22,10 @@ export interface RouteProps {
 	outlet?: React.ReactNode;
 }
 
+/**
+ * A simple RSC compatible router. This is utilized by internals
+ * and should not be rendered directly in your application code.
+ */
 export function Router({ trie, url }: { trie: Node<RouteConfig>; url: URL }) {
 	const matches = matchTrie(trie as Node<RouteConfig>, url.pathname) || [];
 
@@ -40,6 +44,9 @@ export function Router({ trie, url }: { trie: Node<RouteConfig>; url: URL }) {
 	return lastElement;
 }
 
+/**
+ * Renders the streaming RSC runtime. This should be rendered in the head of your document.
+ */
 export function InlineScripts() {
 	return React.createElement(
 		React.Fragment,
@@ -48,7 +55,7 @@ export function InlineScripts() {
 			dangerouslySetInnerHTML: {
 				__html: `
 var __oneup = { e: new TextEncoder() };
-__oneup.r = new Response(new ReadableStream({ start(c) { __oneup.c = c; } }));
+__oneup.rscResponse = new Response(new ReadableStream({ start(c) { __oneup.c = c; } }));
 								`.trim(),
 			},
 		})
@@ -59,6 +66,9 @@ interface BrowserEntryProps {
 	browserEntry: string;
 }
 
+/**
+ * Renders the nessesary script tags to hydrate your application in the browser.
+ */
 export function BrowserEntry({ browserEntry }: BrowserEntryProps) {
 	const { entry, chunks } = JSON.parse(browserEntry) as {
 		entry: string;

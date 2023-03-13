@@ -9,8 +9,6 @@ import * as esbuild from "esbuild";
 import { createESBuildPlugin } from "./plugin";
 import { createRscServerClientTransformPlugin } from "./plugins/rsc-server-client-transform";
 
-console.log(mod.builtinModules);
-
 export async function run(argv: string[]) {
 	const args = arg(
 		{
@@ -89,7 +87,6 @@ async function build(cwd: string, config?: string, mode?: string) {
 			});
 
 			build.onResolve({ filter: /.*/ }, (args) => {
-				console.log(args.path);
 				if (builtinsSet.has(args.path)) {
 					return {
 						path: args.path,
@@ -150,9 +147,7 @@ async function build(cwd: string, config?: string, mode?: string) {
 		plugins: [
 			builtinExternalsPlugin,
 			createESBuildPlugin({
-				transformPlugins: [
-					createRscServerClientTransformPlugin(isProduction, clientModules),
-				],
+				transformPlugins: [createRscServerClientTransformPlugin(clientModules)],
 			}),
 		],
 	});
@@ -323,12 +318,10 @@ export const manifest = ${JSON.stringify(rscManifest, null, 2)};
 			nodeURL.pathToFileURL(path.resolve(cwd, outfile)).href
 		);
 	}
-	console.log(clientModuleToOutputModule);
 
 	componentCounter = 0;
 	const serverClientManifest: any = {};
 	clientModules.forEach((rscExports, file) => {
-		console.log({ file });
 		const outputModule = clientModuleToOutputModule.get(file);
 		const mod = clientModuleToBrowserOutputModule.get(file);
 		if (!outputModule || !mod || !mod[0])

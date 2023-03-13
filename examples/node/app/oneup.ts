@@ -1,3 +1,6 @@
+// This file is used to configure the OneUp app. It defines the routing
+// structure and is the entrypoint for the RSC bundle.
+
 import type { RouteConfig } from "oneup-react";
 
 import * as root from "./root";

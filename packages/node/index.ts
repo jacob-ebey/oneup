@@ -6,6 +6,12 @@ import { createId } from "@paralleldrive/cuid2";
 
 const require = createRequire(import.meta.url);
 
+// TODO: Use something other than JSON for worker communication.
+
+/**
+ * Create a worker thread that will be used to render RSC chunks.
+ * @param buildPath Absolute path to the the built RSC bundle.
+ */
 export async function createRSCWorker(buildPath: string) {
 	const rscWorker = require.resolve("oneup-node/rsc-worker");
 	const worker = new Worker(rscWorker, {
@@ -64,6 +70,10 @@ export async function createRSCWorker(buildPath: string) {
 	};
 }
 
+/**
+ * A transform stream that takes RSC chunks and injects them into the HTML
+ * stream for use during hydration.
+ */
 export class RSCTransform extends Transform {
 	private rscChunks: string[];
 	constructor(rscStream: Readable) {

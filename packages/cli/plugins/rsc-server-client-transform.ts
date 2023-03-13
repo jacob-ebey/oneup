@@ -6,8 +6,10 @@ import type * as Plugin from "../plugin";
 const t = babel.types;
 const loaders = new Set(["js", "jsx", "ts", "tsx"]);
 
+/**
+ * Transform client modules and remove them from the bundle.
+ */
 export function createRscServerClientTransformPlugin(
-	isProduction: boolean,
 	clientModules: Map<string, Set<string>>
 ): Plugin.TransformPlugin {
 	let componentCounter = 0;
