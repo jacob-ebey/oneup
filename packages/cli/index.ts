@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import * as mod from "node:module";
+import * as nodeURL from "node:url";
 
 import arg from "arg";
 import * as esbuild from "esbuild";
@@ -159,7 +160,14 @@ async function build(cwd: string, config?: string, mode?: string) {
 		throw new Error("RSC build failed.");
 	}
 
-	const clientEntries = Array.from(clientModules.keys());
+	const clientEntries: Record<string, string> = {};
+	for (const clientModule of clientModules) {
+		const modId = path
+			.relative(cwd, clientModule[0])
+			.replace(/(\.+[\/\\])+/g, "_")
+			.replace(/\\/g, "/");
+		clientEntries[modId] = clientModule[0];
+	}
 
 	const browserBuildResult = await esbuild.build({
 		absWorkingDir: cwd,
@@ -178,7 +186,7 @@ async function build(cwd: string, config?: string, mode?: string) {
 		jsxDev: false,
 		mainFields: ["browser", "module", "main"],
 		conditions: ["browser", "import", "default"],
-		entryPoints: ["app/entry.browser.ts", ...clientEntries],
+		entryPoints: { "entry.borwser": "app/entry.browser.ts", ...clientEntries },
 		define: {
 			"process.env.NODE_ENV": isProduction ? '"production"' : '"development"',
 		},
@@ -310,12 +318,17 @@ export const manifest = ${JSON.stringify(rscManifest, null, 2)};
 		const entry = path.resolve(cwd, meta.entryPoint);
 		const clientModule = clientModules.get(entry);
 		if (!clientModule) continue;
-		clientModuleToOutputModule.set(entry, path.resolve(cwd, outfile));
+		clientModuleToOutputModule.set(
+			entry,
+			nodeURL.pathToFileURL(path.resolve(cwd, outfile)).href
+		);
 	}
+	console.log(clientModuleToOutputModule);
 
 	componentCounter = 0;
 	const serverClientManifest: any = {};
 	clientModules.forEach((rscExports, file) => {
+		console.log({ file });
 		const outputModule = clientModuleToOutputModule.get(file);
 		const mod = clientModuleToBrowserOutputModule.get(file);
 		if (!outputModule || !mod || !mod[0])

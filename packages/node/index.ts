@@ -1,6 +1,5 @@
 import { createRequire } from "node:module";
 import { type Writable, PassThrough, Readable, Transform } from "node:stream";
-import {} from "node:stream";
 import { Worker } from "node:worker_threads";
 
 import { createId } from "@paralleldrive/cuid2";

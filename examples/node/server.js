@@ -19,7 +19,7 @@ isbot.exclude(["chrome-lighthouse"]);
 const __dirname = path.dirname(nodeURL.fileURLToPath(import.meta.url));
 
 const rscWorker = await createRSCWorker(
-	path.resolve(__dirname, "build/rsc.js")
+	nodeURL.pathToFileURL(path.resolve(__dirname, "build/rsc.js")).href
 );
 
 /**

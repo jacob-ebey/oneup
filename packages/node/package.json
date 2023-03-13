@@ -11,12 +11,12 @@
 	"main": "./index.js",
 	"exports": {
 		".": {
-			"types": "./index.d.ts",
-			"default": "./index.js"
+			"default": "./index.js",
+			"types": "./index.d.ts"
 		},
 		"./rsc-worker": {
-			"types": "./rsc-worker.d.ts",
-			"default": "./rsc-worker.js"
+			"default": "./rsc-worker.js",
+			"types": "./rsc-worker.d.ts"
 		}
 	},
 	"scripts": {
@@ -27,6 +27,7 @@
 		"router-trie": "0.0.8"
 	},
 	"devDependencies": {
+		"@types/node": "18.15.0",
 		"oneup-repo-tools": "0.0.3"
 	},
 	"optionalPeerDependencies": {

@@ -11,8 +11,8 @@
 	"main": "./index.js",
 	"exports": {
 		".": {
-			"types": "./index.d.ts",
-			"default": "./index.js"
+			"default": "./index.js",
+			"types": "./index.d.ts"
 		}
 	},
 	"scripts": {

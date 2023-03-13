@@ -11,12 +11,12 @@
 	"main": "./index.js",
 	"exports": {
 		".": {
-			"types": "./index.d.ts",
-			"default": "./index.js"
+			"default": "./index.js",
+			"types": "./index.d.ts"
 		},
 		"./entry.browser": {
-			"types": "./entry.browser.d.ts",
-			"default": "./entry.browser.js"
+			"default": "./entry.browser.js",
+			"types": "./entry.browser.d.ts"
 		}
 	},
 	"bin": {

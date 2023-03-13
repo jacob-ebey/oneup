@@ -11,12 +11,14 @@
 	"main": "./index.js",
 	"exports": {
 		".": {
-			"types": "./index.d.ts",
-			"default": "./index.js"
+			"import": "./index.js",
+			"default": "./index.js",
+			"types": "./index.d.ts"
 		},
 		"./client": {
-			"types": "./client.d.ts",
-			"default": "./client.js"
+			"import": "./client.js",
+			"default": "./client.js",
+			"types": "./client.d.ts"
 		}
 	},
 	"scripts": {
