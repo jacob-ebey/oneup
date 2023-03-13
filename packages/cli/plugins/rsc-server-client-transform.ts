@@ -6,6 +6,65 @@ import type * as Plugin from "../plugin";
 const t = babel.types;
 const loaders = new Set(["js", "jsx", "ts", "tsx"]);
 
+export function isClientComponent(source: string, filePath: string) {
+	const transforms: sucrase.Transform[] = [];
+	if (filePath.endsWith(".jsx")) {
+		transforms.push("jsx");
+	} else if (filePath.endsWith(".tsx")) {
+		transforms.push("jsx");
+		transforms.push("typescript");
+	} else if (filePath.endsWith(".ts")) {
+		transforms.push("typescript");
+	}
+
+	const { code } = sucrase.transform(source, {
+		transforms,
+		filePath,
+		jsxRuntime: "automatic",
+		production: true,
+		preserveDynamicImport: true,
+		disableESTransforms: true,
+	});
+
+	let isClientModule = false;
+	babel.parseSync(code, {
+		babelrc: false,
+		configFile: false,
+		filename: filePath,
+
+		plugins: [
+			{
+				pre(file) {
+					console.log("HERE", file);
+					const newIsClientModule =
+						file.ast.program.directives.some((node) => {
+							if (node.value.value === "use client") {
+								return true;
+							}
+						}) ||
+						file.ast.program.body.some((node) => {
+							// find "use client" or 'use client' or `use client` in the top level
+							if (
+								t.isExpressionStatement(node) &&
+								t.isStringLiteral(node.expression)
+							) {
+								if (node.expression.value === "use client") {
+									return true;
+								}
+							}
+						});
+
+					if (newIsClientModule) {
+						isClientModule = true;
+					}
+				},
+			},
+		],
+	});
+
+	return isClientModule;
+}
+
 export function createRscServerClientTransformPlugin(
 	isProduction: boolean,
 	clientModules: Map<string, Set<string>>
@@ -30,13 +89,14 @@ export function createRscServerClientTransformPlugin(
 			transforms,
 			filePath: contents.path,
 			jsxRuntime: "automatic",
-			production: isProduction,
+			production: true,
 			preserveDynamicImport: true,
 			disableESTransforms: true,
 		});
 
 		let isClientModule = false;
 		let exportsCache = new Set<string>();
+		let transformedClasses = new Set<string>();
 		const transformResult = babel.transformSync(code, {
 			babelrc: false,
 			configFile: false,
@@ -76,7 +136,8 @@ export function createRscServerClientTransformPlugin(
 							}
 							let name;
 							if (
-								t.isFunctionDeclaration(path.node.declaration) &&
+								(t.isFunctionDeclaration(path.node.declaration) ||
+									t.isClassDeclaration(path.node.declaration)) &&
 								(name = isReactComponent(path.node.declaration.id?.name))
 							) {
 								exportsCache.add(name);
@@ -92,6 +153,42 @@ export function createRscServerClientTransformPlugin(
 											t.blockStatement([])
 										)
 									);
+
+								path.skip();
+							}
+
+							for (const specifier of path.node.specifiers) {
+								if (
+									t.isExportSpecifier(specifier) &&
+									transformedClasses.has(specifier.local.name)
+								) {
+									exportsCache.add(specifier.local.name);
+								}
+							}
+						},
+						ClassDeclaration(path) {
+							let name;
+							if ((name = isReactComponent(path.node.id.name))) {
+								transformedClasses.add(name);
+								path.replaceWith(
+									t.functionDeclaration(path.node.id, [], t.blockStatement([]))
+								);
+							}
+						},
+						Class(path) {
+							if (path.node.id) {
+								return;
+							}
+							if (path.parent.type !== "VariableDeclarator") {
+								return;
+							}
+							if (path.parent.id.type !== "Identifier") {
+								return;
+							}
+							let name: string | undefined = path.parent.id.name;
+							if ((name = isReactComponent(name))) {
+								transformedClasses.add(name);
+								path.replaceWith(t.objectExpression([]));
 							}
 						},
 					},
@@ -103,6 +200,9 @@ export function createRscServerClientTransformPlugin(
 			return contents;
 		}
 
+		if (contents.path === "/Users/jacob/git/oneup/packages/react/client.js") {
+			console.log({ f: contents.path, exportsCache });
+		}
 		let transformedCode = transformResult?.code || "";
 		for (const rscExport of exportsCache) {
 			transformedCode += `

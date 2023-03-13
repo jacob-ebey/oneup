@@ -2,10 +2,14 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 import arg from "arg";
+import enhancedResolve from "enhanced-resolve";
 import * as esbuild from "esbuild";
 
 import { createESBuildPlugin } from "./plugin";
-import { createRscServerClientTransformPlugin } from "./plugins/rsc-server-client-transform";
+import {
+	createRscServerClientTransformPlugin,
+	isClientComponent,
+} from "./plugins/rsc-server-client-transform";
 
 export async function run(argv: string[]) {
 	const args = arg(
@@ -95,6 +99,10 @@ async function build(cwd: string, config?: string, mode?: string) {
 		},
 	};
 
+	const resolver = enhancedResolve.ResolverFactory.createResolver({
+		fileSystem: new enhancedResolve.CachedInputFileSystem(fs, 4000),
+	});
+
 	const rscBuildResult = await esbuild.build({
 		absWorkingDir: cwd,
 		bundle: true,
@@ -105,13 +113,12 @@ async function build(cwd: string, config?: string, mode?: string) {
 		write: false,
 		outfile: "build/rsc.js",
 		minify: isProduction,
-		jsxDev: !isProduction,
+		jsxDev: false,
 		define: {
 			"process.env.NODE_ENV": isProduction ? '"production"' : '"development"',
 		},
 		entryPoints: [config],
 		plugins: [
-			externalsPlugin,
 			createESBuildPlugin({
 				transformPlugins: [
 					createRscServerClientTransformPlugin(isProduction, clientModules),
@@ -122,6 +129,8 @@ async function build(cwd: string, config?: string, mode?: string) {
 	if (rscBuildResult.errors.length > 0) {
 		throw new Error("RSC build failed.");
 	}
+
+	console.log(Array.from(clientModules.keys()));
 
 	const clientEntries = Array.from(clientModules.keys());
 
@@ -139,7 +148,7 @@ async function build(cwd: string, config?: string, mode?: string) {
 		chunkNames: "[name]-[hash]",
 		entryNames: "[name]-[hash]",
 		minify: isProduction,
-		jsxDev: !isProduction,
+		jsxDev: false,
 		mainFields: ["browser", "module", "main"],
 		conditions: ["browser", "import", "default"],
 		entryPoints: ["app/entry.browser.ts", ...clientEntries],
@@ -223,7 +232,7 @@ export const manifest = ${JSON.stringify(rscManifest, null, 2)};
 		write: false,
 		outdir: "build/client-components",
 		minify: isProduction,
-		jsxDev: !isProduction,
+		jsxDev: false,
 		entryPoints: clientEntries,
 		plugins: [externalsPlugin],
 		define: {

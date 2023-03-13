@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import { getInitialRSCFetch } from "oneup/react";
+import { getInitialRSCFetch } from "oneup-react";
 // @ts-expect-error
 import { createFromFetch } from "react-server-dom-webpack/client";
 

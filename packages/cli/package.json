@@ -6,6 +6,7 @@
 	"files": [
 		"**/*"
 	],
+	"sideEffects": false,
 	"types": "./index.d.ts",
 	"main": "./index.js",
 	"exports": {
@@ -20,11 +21,13 @@
 	"dependencies": {
 		"@babel/core": "7.21.0",
 		"arg": "5.0.2",
+		"enhanced-resolve": "5.12.0",
 		"esbuild": "0.17.10",
 		"sucrase": "3.29.0"
 	},
 	"devDependencies": {
 		"@types/babel__core": "7.20.0",
+		"@types/node": "18.15.0",
 		"oneup-repo-tools": "0.0.2"
 	}
 }

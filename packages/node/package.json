@@ -6,6 +6,7 @@
 	"files": [
 		"**/*"
 	],
+	"sideEffects": false,
 	"types": "./index.d.ts",
 	"main": "./index.js",
 	"exports": {

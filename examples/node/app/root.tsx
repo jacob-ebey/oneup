@@ -1,5 +1,6 @@
 import * as React from "react";
-import { type RouteProps, InlineScripts } from "oneup/react";
+import { type RouteProps, InlineScripts } from "oneup-react";
+import { ErrorBoundary } from "oneup-react/client";
 import clientEntry from "oneup/entry.browser";
 
 import { Counter } from "./components/counter";
@@ -19,10 +20,14 @@ export function Component({ outlet }: RouteProps) {
 				<Counter />
 				{outlet}
 
-				<React.Suspense>
-					{/* @ts-expect-error */}
-					<Delayed />
-				</React.Suspense>
+				<ErrorBoundary
+					fallback={<p style={{ color: "red" }}>Something went wrong</p>}
+				>
+					<React.Suspense>
+						{/* @ts-expect-error */}
+						<Delayed />
+					</React.Suspense>
+				</ErrorBoundary>
 				<script async type="module" src={clientEntry} />
 			</body>
 		</html>
@@ -30,6 +35,12 @@ export function Component({ outlet }: RouteProps) {
 }
 
 async function Delayed() {
-	await new Promise((resolve) => setTimeout(resolve, 1000));
+	if (Math.random() >= 0.5) {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+	} else {
+		await new Promise((_, reject) =>
+			setTimeout(() => reject(new Error("Ooops")), 1000)
+		);
+	}
 	return <p>Delayed</p>;
 }

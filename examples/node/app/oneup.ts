@@ -1,4 +1,4 @@
-import type { RouteConfig } from "oneup";
+import type { RouteConfig } from "oneup-react";
 
 import * as root from "./root";
 import * as index from "./routes/_index";

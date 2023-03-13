@@ -1,10 +1,25 @@
 import * as React from "react";
-import { type Node, matchTrie } from "router-trie";
+import {
+	type Node,
+	type IndexRouteConfig as BaseIndexRouteConfig,
+	type NonIndexRouteConfig as BaseNonIndexRouteConfig,
+	matchTrie,
+} from "router-trie";
 
-import type { RouteConfig } from "oneup";
+export type BaseRouteConfig = {
+	Component?: unknown;
+};
+
+export type IndexRouteConfig = BaseIndexRouteConfig & BaseRouteConfig;
+export type NonIndexRouteConfig = Omit<BaseNonIndexRouteConfig, "children"> &
+	BaseRouteConfig & {
+		children?: RouteConfig[];
+	};
+
+export type RouteConfig = IndexRouteConfig | NonIndexRouteConfig;
 
 export interface RouteProps {
-	outlet: React.ReactNode;
+	outlet?: React.ReactNode;
 }
 
 export function Router({ trie, url }: { trie: Node<RouteConfig>; url: URL }) {

@@ -69,8 +69,13 @@ async function build({ input, output, pkg, platform }) {
 	const buildResult = await esbuild.build({
 		entryPoints: [entry],
 		outfile: output || "index.js",
+		sourcemap: "external",
 		bundle: true,
 		format: "esm",
+		target: "es2020",
+		supported: {
+			"top-level-await": true,
+		},
 		platform: /** @type {esbuild.Platform} */ (platform),
 		external: [
 			...Object.keys(pkg.dependencies || {}),

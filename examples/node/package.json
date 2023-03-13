@@ -3,20 +3,24 @@
 	"name": "@examples/node",
 	"version": "0.0.3",
 	"type": "module",
+	"sideEffects": false,
 	"scripts": {
-		"build": "oneup build",
+		"build": "oneup build --mode development",
 		"start": "node server.js"
 	},
 	"dependencies": {
 		"@jacob-ebey/oneup": "0.0.3",
 		"compressing": "1.8.0",
-		"oneup": "npm:@jacob-ebey/oneup@*",
+		"isbot": "3.6.6",
+		"mime-types": "2.1.35",
 		"oneup-react": "0.0.3",
 		"react": "0.0.0-experimental-3706edb81-20230308",
 		"react-dom": "0.0.0-experimental-3706edb81-20230308",
 		"react-server-dom-webpack": "0.0.0-experimental-3706edb81-20230308"
 	},
 	"devDependencies": {
+		"@types/mime-types": "2.1.1",
+		"@types/node": "18.15.0",
 		"@types/react": "18.0.28",
 		"@types/react-dom": "18.0.11",
 		"oneup-cli": "0.0.3"
