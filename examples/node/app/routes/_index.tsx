@@ -1,3 +1,5 @@
+export const id = "index";
+
 export async function Component() {
 	await new Promise((resolve) => setTimeout(resolve, 200));
 	return (

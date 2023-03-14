@@ -4,3 +4,4 @@ node_modules/
 packages/**/*.js
 packages/**/*.js.map
 packages/**/*.d.ts
+!**/types/**/*.d.ts

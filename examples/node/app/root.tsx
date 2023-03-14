@@ -6,6 +6,8 @@ import browserEntry from "oneup/entry.browser";
 import { Counter } from "./components/counter";
 import { GlobalLoadingIndicator } from "./components/global-loading-indicator";
 
+export const id = "root";
+
 export function Component({ outlet }: RouteProps) {
 	return (
 		<html>

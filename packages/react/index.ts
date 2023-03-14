@@ -6,9 +6,9 @@ import {
 	matchTrie,
 } from "router-trie";
 
-export type BaseRouteConfig = {
+export interface BaseRouteConfig {
 	Component?: unknown;
-};
+}
 
 export type IndexRouteConfig = BaseIndexRouteConfig & BaseRouteConfig;
 export type NonIndexRouteConfig = Omit<BaseNonIndexRouteConfig, "children"> &

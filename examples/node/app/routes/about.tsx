@@ -1,3 +1,5 @@
+export const id = "about";
+
 export function Component() {
 	return (
 		<main>

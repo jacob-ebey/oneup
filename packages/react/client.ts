@@ -113,10 +113,7 @@ export function hydrateDocument() {
 		});
 	};
 
-	const handleNavigate = (
-		// @ts-expect-error
-		event: NavigateEvent
-	) => {
+	const handleNavigate = (event: NavigateEvent) => {
 		if (!event.canIntercept || event.hashChange || event.downloadRequest) {
 			return;
 		}
@@ -163,9 +160,7 @@ export function hydrateDocument() {
 		});
 	};
 
-	// @ts-expect-error
 	if (window.navigation) {
-		// @ts-expect-error
 		window.navigation.addEventListener("navigate", handleNavigate);
 	}
 }

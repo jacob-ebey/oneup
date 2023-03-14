@@ -9,16 +9,13 @@ import * as about from "./routes/about";
 
 export const routes = [
 	{
-		id: "root",
 		...root,
 		children: [
 			{
-				id: "index",
 				index: true,
 				...index,
 			},
 			{
-				id: "about",
 				path: "about",
 				...about,
 			},
